@@ -6,7 +6,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
-import org.springframework.stereotype.Component;
 
 /**
  * Created by xuh
@@ -24,20 +23,20 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     @Override
     public void configure(HttpSecurity http) throws Exception {
 
-        http.formLogin()
-                .loginPage("/login.html")//自定义标准登录界面
-                .loginProcessingUrl("/user/login") //自定义表单请求路径
-                .and()
-                .authorizeRequests()
-                .antMatchers("/login.html", "/user/login").permitAll()//此路径放行 否则会陷入死循环
-                .anyRequest()
-                .authenticated()
-                .and()
-                .csrf().disable()//跨域关闭
+//        http.formLogin()
+//                .loginPage("/login.html")//自定义标准登录界面
+//                .loginProcessingUrl("/user/login") //自定义表单请求路径
+//                .and()
+//                .authorizeRequests()
+//                .antMatchers("/login.html", "/user/login").permitAll()//此路径放行 否则会陷入死循环
+//                .anyRequest()
+//                .authenticated()
+//                .and()
+//                .csrf().disable()//跨域关闭
         ;
 
-//        http.authorizeRequests()
-//                .antMatchers("/order/**").authenticated(); // 配置order访问控制，必须认证后才可以访问
+        http.authorizeRequests()
+                .antMatchers("/order/**", "/user/**").authenticated(); // 配置order访问控制，必须认证后才可以访问
     }
 
 

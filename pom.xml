@@ -12,6 +12,7 @@
         <module>oauth-service</module>
         <module>oauth-resource</module>
         <module>oauth-soo</module>
+        <module>oauth-client</module>
     </modules>
 
     <properties>
