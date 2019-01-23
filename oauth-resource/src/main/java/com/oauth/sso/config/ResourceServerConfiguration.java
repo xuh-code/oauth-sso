@@ -13,18 +13,31 @@ import org.springframework.stereotype.Component;
  * DATE 2019/1/23 1:27.
  * version 1.0
  */
-@Component
 @Configuration
 @EnableResourceServer
 //  开启spring security注解
 @EnableGlobalMethodSecurity(prePostEnabled = true)
+//  加载 放行路径
 @EnableConfigurationProperties(PermitUrlProperties.class)
 public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/order/**").authenticated(); // 配置order访问控制，必须认证后才可以访问
+
+        http.formLogin()
+                .loginPage("/login.html")//自定义标准登录界面
+                .loginProcessingUrl("/user/login") //自定义表单请求路径
+                .and()
+                .authorizeRequests()
+                .antMatchers("/login.html", "/user/login").permitAll()//此路径放行 否则会陷入死循环
+                .anyRequest()
+                .authenticated()
+                .and()
+                .csrf().disable()//跨域关闭
+        ;
+
+//        http.authorizeRequests()
+//                .antMatchers("/order/**").authenticated(); // 配置order访问控制，必须认证后才可以访问
     }
 
 

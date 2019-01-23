@@ -1,14 +1,18 @@
 package oauthservice.oauthservice.controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.*;
+
+import java.security.Principal;
 
 /**
  * @author xuh@fitme.ai
  * @date 2019/1/22 14:43
  */
+@Slf4j
 @RestController
+@RequestMapping("/users")
 public class TestController {
 
     @GetMapping("/order/{id}")
@@ -16,4 +20,12 @@ public class TestController {
         return "order id : " + id;
     }
 
+    @RequestMapping(value = "/current", method = RequestMethod.GET)
+    public Principal getUser(Principal principal) {
+        log.info(">>>>>>>>>>>>>>>>>>>>>>>>");
+        log.info(principal.toString());
+        log.info(">>>>>>>>>>>>>>>>>>>>>>>>");
+
+        return principal;
+    }
 }
