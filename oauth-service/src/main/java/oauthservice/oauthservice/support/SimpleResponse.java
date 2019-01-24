@@ -1,4 +1,4 @@
-package oauthservice.oauthservice.server.oauth2.support;
+package oauthservice.oauthservice.support;
 
 import lombok.Data;
 

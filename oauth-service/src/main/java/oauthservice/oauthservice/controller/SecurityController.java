@@ -1,8 +1,8 @@
-package oauthservice.oauthservice.server.oauth2.controller;
+package oauthservice.oauthservice.controller;
 
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import oauthservice.oauthservice.server.oauth2.support.SimpleResponse;
+import oauthservice.oauthservice.support.SimpleResponse;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.web.DefaultRedirectStrategy;
@@ -35,7 +35,7 @@ public class SecurityController {
 
     @RequestMapping("/authentication/form")
     @ResponseStatus(code = HttpStatus.UNAUTHORIZED)
-    public SimpleResponse requireAuthentcation(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public SimpleResponse requireAuthentication(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         SavedRequest savedRequest = requestCache.getRequest(request, response);
 

@@ -1,4 +1,4 @@
-package oauthservice.oauthservice.server.oauth2.config;
+package oauthservice.oauthservice.config;
 
 import oauthservice.oauthservice.dao.UserServiceDetail;
 import org.slf4j.Logger;
@@ -75,22 +75,6 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
         String finalSecret = "{bcrypt}" + new BCryptPasswordEncoder().encode("xuh123123");
 
         logger.info("client_id_secret = " + finalSecret);
-
-
-        // 配置两个客户端，一个用于password认证一个用于client认证
-//        clients.inMemory().withClient("client_auth_resource")
-////                .resourceIds(Utils.RESOURCEIDS.ORDER)
-//                .authorizedGrantTypes("client_credentials", "refresh_token")
-//                .scopes("select")
-//                .authorities("oauth2")
-//                .secret(finalSecret)
-//                .and().withClient("client_auth_resource")
-////                .resourceIds(Utils.RESOURCEIDS.ORDER)
-//                .authorizedGrantTypes("password", "refresh_token")
-//                .scopes("server")
-//                .authorities("oauth2")
-//                .secret(finalSecret);
-
         clients.withClientDetails(clientDetailsService);
     }
 
@@ -132,6 +116,5 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
         //  允许表单认证
         security.allowFormAuthenticationForClients().tokenKeyAccess("permitAll()")
                 .checkTokenAccess("isAuthenticated()");
-//        super.configure(security);
     }
 }

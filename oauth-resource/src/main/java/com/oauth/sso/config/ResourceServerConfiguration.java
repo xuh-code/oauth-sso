@@ -2,6 +2,7 @@ package com.oauth.sso.config;
 
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
@@ -17,7 +18,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.R
 //  开启spring security注解
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 //  加载 放行路径
-@EnableConfigurationProperties(PermitUrlProperties.class)
+//@EnableConfigurationProperties(PermitUrlProperties.class)
 public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
 
     @Override
@@ -33,10 +34,10 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
 //                .authenticated()
 //                .and()
 //                .csrf().disable()//跨域关闭
-        ;
+//        ;
 
         http.authorizeRequests()
-                .antMatchers("/order/**", "/user/**").authenticated(); // 配置order访问控制，必须认证后才可以访问
+                .antMatchers("/order/**").authenticated(); // 配置order访问控制，必须认证后才可以访问
     }
 
 
