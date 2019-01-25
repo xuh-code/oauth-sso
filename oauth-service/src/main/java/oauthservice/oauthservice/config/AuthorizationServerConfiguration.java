@@ -91,6 +91,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 //                .allowedTokenEndpointRequestMethods(HttpMethod.GET, HttpMethod.POST);
 
         //  存入数据库
+        //  存入数据库
         endpoints.tokenStore(tokenStore).authenticationManager(authenticationManager)
                 .userDetailsService(userServiceDetail);
 
