@@ -57,11 +57,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //                .csrf().disable()//跨域关闭
 //        ;
 
-
-        http.requestMatchers().anyRequest()
+        http.formLogin()
+                .loginPage("/sign-in.html")
+                .loginProcessingUrl("/user/login")
                 .and()
                 .authorizeRequests()
-                .antMatchers(AUTH_WHITELIST).permitAll();
+                .antMatchers(AUTH_WHITELIST).permitAll()
+                .anyRequest()
+                .authenticated()
+                .and()
+                .csrf().disable()
+        ;
+
+//        http.requestMatchers().anyRequest()
+//                .and()
+//                .authorizeRequests()
+//                .antMatchers(AUTH_WHITELIST).permitAll();
 
     }
 }
