@@ -1,5 +1,6 @@
-package oauthservice.oauthservice.dao;
+package oauthservice.oauthservice.service;
 
+import oauthservice.oauthservice.dao.UserDoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

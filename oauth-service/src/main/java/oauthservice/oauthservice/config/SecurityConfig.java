@@ -1,9 +1,12 @@
 package oauthservice.oauthservice.config;
 
+import oauthservice.oauthservice.service.UserServiceDetail;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -39,40 +42,48 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
-        AuthenticationManager manager = super.authenticationManagerBean();
-        return manager;
+        return super.authenticationManagerBean();
     }
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    @Autowired
+    private UserServiceDetail userServiceDetail;
+
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+////        http.formLogin()
+////                .loginPage("/sign-in.html")//自定义标准登录界面
+////                .loginProcessingUrl("/authentication/form") //自定义表单请求路径
+////                .and()
+////                .authorizeRequests()
+////                .antMatchers(AUTH_WHITELIST).permitAll()//此路径放行 否则会陷入死循环
+////                .anyRequest()
+////                .authenticated()
+////                .and()
+////                .csrf().disable()//跨域关闭
+////        ;
+//
 //        http.formLogin()
-//                .loginPage("/sign-in.html")//自定义标准登录界面
-//                .loginProcessingUrl("/authentication/form") //自定义表单请求路径
+//                .loginPage("/sign-in.html")
+//                .loginProcessingUrl("/user/login")
 //                .and()
 //                .authorizeRequests()
-//                .antMatchers(AUTH_WHITELIST).permitAll()//此路径放行 否则会陷入死循环
+//                .antMatchers(AUTH_WHITELIST).permitAll()
 //                .anyRequest()
 //                .authenticated()
 //                .and()
-//                .csrf().disable()//跨域关闭
+//                .csrf().disable()
 //        ;
+//
+////        http.requestMatchers().anyRequest()
+////                .and()
+////                .authorizeRequests()
+////                .antMatchers(AUTH_WHITELIST).permitAll();
+//
+//    }
 
-        http.formLogin()
-                .loginPage("/sign-in.html")
-                .loginProcessingUrl("/user/login")
-                .and()
-                .authorizeRequests()
-                .antMatchers(AUTH_WHITELIST).permitAll()
-                .anyRequest()
-                .authenticated()
-                .and()
-                .csrf().disable()
-        ;
 
-//        http.requestMatchers().anyRequest()
-//                .and()
-//                .authorizeRequests()
-//                .antMatchers(AUTH_WHITELIST).permitAll();
-
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userServiceDetail).passwordEncoder(passwordEncoder());
     }
 }
